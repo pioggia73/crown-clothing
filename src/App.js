@@ -60,17 +60,25 @@ class App extends React.Component {
         <Route exact path='/checkout'>
           <CheckoutPage />
         </Route>
-        <Route exact path='/signin'>
-          { this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUpPage /> )}
-        </Route>
+          <Route
+            exact
+            path='/signin'
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                  <SignInAndSignUpPage />
+                )
+            }
+          />
       </Switch>
     </div>
   );
 }
 };
 
-const mapStateToProps = createStructuredSelector => ({
-  currentUser: selectCurrentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
