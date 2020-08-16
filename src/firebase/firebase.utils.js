@@ -4,17 +4,19 @@ import 'firebase/auth';
 
 const config = {
 
-   apiKey: "AIzaSyAODj7tmPttbo5PnhDmNQCI3bJ7EdbD9YA",
-   authDomain: "crown-clothing-app-73b7c.firebaseapp.com",
-   databaseURL: "https://crown-clothing-app-73b7c.firebaseio.com",
-   projectId: "crown-clothing-app-73b7c",
-   storageBucket: "crown-clothing-app-73b7c.appspot.com",
-   messagingSenderId: "1092768377174",
-   appId: "1:1092768377174:web:c545375fe475d2b86ccef7",
-   measurementId: "G-7LB60M8CVJ"
+  apiKey: "AIzaSyAODj7tmPttbo5PnhDmNQCI3bJ7EdbD9YA",
+  authDomain: "crown-clothing-app-73b7c.firebaseapp.com",
+  databaseURL: "https://crown-clothing-app-73b7c.firebaseio.com",
+  projectId: "crown-clothing-app-73b7c",
+  storageBucket: "crown-clothing-app-73b7c.appspot.com",
+  messagingSenderId: "1092768377174",
+  appId: "1:1092768377174:web:c545375fe475d2b86ccef7",
+  measurementId: "G-7LB60M8CVJ"
 };
 
 firebase.initializeApp(config);
+
+//////// *******  user ********* ////////
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 
@@ -41,6 +43,40 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   
   return userRef;
 }
+
+/////////// ***********  products ********** /////////
+
+export const addCollectionAndDocuments =  async ( collectionKey, objectsToAdd ) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+   
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+
+  const transformedCollection = collections.docs.map(doc => {
+      const { title, items } = doc.data();
+
+      return {
+        routeName: encodeURI(title.toLowerCase()),
+        id:doc.id,
+        title,
+        items
+      }
+  })
+
+  return transformedCollection.reduce(( accumulator,collection ) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator
+  }, {}) 
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
