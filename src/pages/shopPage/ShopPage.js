@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
-//import { selectCollections } from '../../redux/shop/shop.selectors';
 // ***** components ***** //
 import CollectionsOverview from '../../components/collections-overwiev/CollectionsOverview';
 // ****** pages ****** //

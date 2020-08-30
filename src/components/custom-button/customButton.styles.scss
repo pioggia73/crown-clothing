@@ -16,6 +16,10 @@
    text-transform: uppercase;
    width: auto;
 
+   @media screen and (max-width: 800px) {
+      min-width: 120px;
+   }
+
    &:hover {
       background-color: white;
       border: 1px solid black;

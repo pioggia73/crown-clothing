@@ -6,6 +6,12 @@
   position: relative;
   width: 21vw;
   transition: all 3s linear;
+
+  @media screen and (max-width: 800px) {
+      height: 200px;
+      width: 43vw;
+      margin: 0 auto;
+  };
   
   .image {
     width: 100%;
@@ -21,6 +27,11 @@
     position: absolute;
     top: 255px;
     display: none; 
+
+    @media screen and (max-width: 800px) {
+     top: 120px;
+     width: 60%;
+    }
   };
 
   &:hover {
@@ -41,6 +52,10 @@
     justify-content: space-between;
     font-size: 18px;
 
+   @media screen and (max-width: 800px) {
+     font-size: 15px;
+   }
+
     .name {
       width: 90%;
       margin-bottom: 15px;
@@ -51,3 +66,4 @@
     }
   }
 };
+
